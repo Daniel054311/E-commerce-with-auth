@@ -1,0 +1,64 @@
+@mixin leftContainerStyle($background-color, $height: 88vh) {
+  height: $height;
+  overflow: hidden;
+  position: relative;
+
+  img {
+    width: 100%;
+    min-height: auto;
+    object-fit: cover;
+    object-position: center;
+    background-color: $background-color;
+  }
+}
+
+@mixin mainContainer() {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+@mixin authMedia($min-height: 84.9vh) {
+  .leftContainer {
+    height: $min-height;
+   
+  }
+}
+
+@mixin formGroup($border-color) {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .formControl {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: outline 0.3s ease-in-out, border-color 0.3s ease-in-out;
+
+    &:focus {
+      border-color: transparent;
+      outline: 1px solid $border-color;
+    }
+  }
+}
+
+@mixin inputError() {
+  .ng-invalid.ng-touched {
+    border-color: #e74c3c;
+    background-color: #fdecea;
+  }
+
+
+  .ng-valid.ng-touched {
+    border-color: #2ecc71;
+    background-color: #eaffea;
+  }
+
+
+  .errorText {
+    color: #e74c3c;
+  }
+
+}

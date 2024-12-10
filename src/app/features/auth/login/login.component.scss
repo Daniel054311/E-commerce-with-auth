@@ -1,0 +1,61 @@
+@import '../../../../variables';
+@import '../../../../mixins';
+@import '../authMixins.scss';
+
+.mainContainer {
+   @include mainContainer;
+    .leftContainer {
+     @include leftContainerStyle($secondary-black-color);
+
+    }
+
+    .rightContainer {
+        padding: 4rem;
+        .loginForm {
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+            color: $secondary-black-color;
+
+            a {
+                color: $secondary-black-color;
+                font-size: 0.85rem;
+            }
+
+            h2 {
+                color: $primary-black-color;
+            }
+
+            .formGroup {
+                @include inputError;
+                @include formGroup($voilet-color);
+                @include inputCaretColor($voilet-color)
+            }
+
+            .forgotPassword {
+                align-self: flex-end;
+                font-size: 0.85rem;
+                margin-top: 0.2rem;
+            }
+
+            .loginBtn {
+                @include buttonStyle($white-color, $voilet-color);
+            }
+
+            .registerLink {
+                @extend a;
+            }
+        }
+
+    }
+
+}
+
+
+
+
+@media screen and (max-width: 1280px) {
+    .mainContainer {
+       @include authMedia()
+    }
+}

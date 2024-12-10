@@ -1,0 +1,60 @@
+@import '../../../../variables';
+@import '../../../../mixins';
+@import '../authMixins.scss';
+
+
+
+.mainContainer {
+    @include mainContainer;
+
+    .leftContainer {
+        @include leftContainerStyle($secondary-black-color);
+    }
+
+    .rightContainer {
+        padding: 0rem 4rem;
+
+        .registerForm {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            color: $secondary-black-color;
+
+            a {
+                color: $secondary-black-color;
+                font-size: 0.85rem;
+            }
+
+            h2 {
+                color: $primary-black-color;
+            }
+
+            .formGroup {
+
+                @include inputError;
+
+                @include formGroup($voilet-color);
+                @include inputCaretColor($voilet-color)
+            }
+
+            .formActions {
+                gap: 1.5rem;
+                margin-top: 1rem;
+
+                .registerBtn {
+                    @include buttonStyle($white-color, $voilet-color);
+                }
+
+                .registerLink {
+                    @extend a;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .mainContainer {
+        @include authMedia(100vh);
+    }
+}

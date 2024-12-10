@@ -1,14 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-:root{
-  --primary-black-color: #333333;
-  --secondary-black-color: #3C4242;
-  --voilet-color: #8A33FD;
-  --white-color: #FFFFFF;
-}
+
 
 *{
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Cousine', monospace;
+  font-family: 'Cousine',  sans-serif;
+
 }

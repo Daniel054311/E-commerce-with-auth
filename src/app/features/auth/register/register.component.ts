@@ -6,11 +6,13 @@ import { AuthErrorMessagePipe } from '../../../shared/utils/pipes/auth-error-mes
 import { ToasterComponent } from '../../../shared/components/toaster/toaster.component';
 import { AuthService } from '../../../core/service/auth.service';
 import { getErrorMessage } from '../../../shared/utils/error.util';
+import { Role } from '../../models/user.roles';
+import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, AuthErrorMessagePipe, ToasterComponent],
+  imports: [RouterLink, NavbarComponent,ReactiveFormsModule, CommonModule, AuthErrorMessagePipe, ToasterComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -18,6 +20,7 @@ export class RegisterComponent implements OnInit {
   @ViewChild(ToasterComponent) toaster!: ToasterComponent;
   registerForm!: FormGroup;
   isLoading = false;
+  userRoles = Object.values(Role);
 
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -33,7 +36,8 @@ export class RegisterComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', Validators.required]
+      confirmPassword: ['', Validators.required],
+      userRole: ['', Validators.required]
     }, {
       validators: this.passwordMatchValidator
     });
@@ -81,9 +85,6 @@ export class RegisterComponent implements OnInit {
           });
           this.isLoading = false;
         },
-        complete: () => {
-          this.isLoading = false;
-        }
       });
     }
   }

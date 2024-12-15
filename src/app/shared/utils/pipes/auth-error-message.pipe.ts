@@ -12,6 +12,7 @@ export class AuthErrorMessagePipe implements PipeTransform {
     if (error['email']) return 'Invalid email address.';
     if (error['minlength']) return `Minimum length is ${error['minlength'].requiredLength}.`;
     if (error['passwordMismatch']) return 'Passwords do not match.';
+    if (error['pattern']) return 'Invalid URL format. Must be a valid image URL ending with .png, .jpg, or .jpeg.';
     return 'Invalid input.';
   }
 

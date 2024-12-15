@@ -5,3 +5,4 @@ export interface Toast {
   type: ToastType;
   duration?: number;
 }
+

@@ -1,8 +1,7 @@
-@mixin leftContainerStyle($background-color, $height: 88vh) {
-  height: $height;
+@mixin leftContainerStyle($background-color, $height: 100vh) {
+  // height: $height;
   overflow: hidden;
-  position: relative;
-
+  position: sticky;
   img {
     width: 100%;
     min-height: auto;
@@ -12,16 +11,18 @@
   }
 }
 
+@mixin authWrapper() {
+ min-height: 100vh;
+}
+
 @mixin mainContainer() {
+  height: 100vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-@mixin authMedia($min-height: 84.9vh) {
-  .leftContainer {
-    height: $min-height;
-   
-  }
-}
+
+
+
 
 @mixin formGroup($border-color) {
   margin-bottom: 1.5rem;

@@ -1,8 +1,11 @@
-<section class="mainContainer">
+<section class="authWrapper">
+<app-navbar></app-navbar>
+<main class="mainContainer">
   <div class="leftContainer">
     <img loading="lazy" src="images/loginImage.png" alt="loginImage">
   </div>
   <div class="rightContainer">
+    <app-toaster></app-toaster>
     <div class="loginForm">
       <h2>Sign In Page</h2>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()"  >
@@ -44,4 +47,5 @@
       </form>
     </div>
   </div>
+</main>
 </section>

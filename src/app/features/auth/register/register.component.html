@@ -1,6 +1,8 @@
-<section class="mainContainer">
+<section class="authWrapper">
+<app-navbar></app-navbar>
+<main class="mainContainer">
     <div class="leftContainer">
-      <img loading="lazy" src="images/registerImage.png" alt="registerImage">
+      <img loading="lazy" src="images/registerImage.png" alt="register">
     </div>
     <div class="rightContainer">
         <app-toaster></app-toaster>
@@ -9,10 +11,10 @@
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
           <div class="formGroup">
             <label for="firstName">First Name</label>
-            <input 
-              type="text" 
-              id="firstName" 
-              formControlName="firstName" 
+            <input
+              type="text"
+              id="firstName"
+              formControlName="firstName"
               placeholder="Enter your first name"
               class="formControl">
               <small class="errorText"
@@ -23,10 +25,10 @@
 
           <div class="formGroup">
             <label for="lastName">Last Name</label>
-            <input 
-              type="text" 
-              id="lastName" 
-              formControlName="lastName" 
+            <input
+              type="text"
+              id="lastName"
+              formControlName="lastName"
               placeholder="Enter your last name"
               class="formControl">
               <small class="errorText"
@@ -34,26 +36,39 @@
               {{ registerForm.get('lastName')?.errors || {} | authErrorMessage }}
             </small>
           </div>
+
           <div class="formGroup">
             <label for="email">Email</label>
-            <input 
-              type="email" 
-              id="email" 
-              formControlName="email" 
+            <input
+              type="email"
+              id="email"
+              formControlName="email"
               placeholder="Enter your email"
               class="formControl">
-              <small class="errorText" 
+              <small class="errorText"
               *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid">
               {{ registerForm.get('email')?.errors || {} | authErrorMessage }}
             </small>
           </div>
 
           <div class="formGroup">
+            <label for="userRole">User Role</label>
+            <select  id="userRole" formControlName="userRole" class="formControl">
+                <option value="" disabled selected>Select your role</option>
+                 <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
+            </select>
+            <small class="errorText"
+              *ngIf="registerForm.get('userRole')?.touched && registerForm.get('userRole')?.invalid">
+              {{ registerForm.get('userRole')?.errors || {} | authErrorMessage }}
+            </small>
+        </div>
+
+          <div class="formGroup">
             <label for="password">Password</label>
-            <input 
-              type="password" 
-              id="password" 
-              formControlName="password" 
+            <input
+              type="password"
+              id="password"
+              formControlName="password"
               placeholder="Enter your password"
               class="formControl">
               <small class="errorText"
@@ -64,16 +79,16 @@
 
           <div class="formGroup">
             <label for="confirmPassword">Confirm Password</label>
-            <input 
-              type="password" 
-              id="confirmPassword" 
-              formControlName="confirmPassword" 
+            <input
+              type="password"
+              id="confirmPassword"
+              formControlName="confirmPassword"
               placeholder="Confirm your password"
               class="formControl">
-              <small class="errorText"  
-              *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.hasError('passwordMismatch')">  
-              {{ { passwordMismatch: true } | authErrorMessage }}  
-        </small> 
+              <small class="errorText"
+              *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.hasError('passwordMismatch')">
+              {{ { passwordMismatch: true } | authErrorMessage }}
+        </small>
 
           </div>
           <div class="formActions">
@@ -87,4 +102,5 @@
         </form>
       </div>
     </div>
-  </section>
+</main>
+</section>

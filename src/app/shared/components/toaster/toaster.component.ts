@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Injectable } from '@angular/core';
-import { Toast, ToastType } from '../../../features/types/types';
+import { Toast, ToastType } from '../../../features/models/types';
 
 @Component({
   selector: 'app-toaster',

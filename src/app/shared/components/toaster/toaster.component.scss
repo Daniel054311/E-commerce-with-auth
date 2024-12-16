@@ -1,0 +1,103 @@
+.toaster-container {
+    position: fixed;
+    top: 0px;
+    right: 20px;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 450px;
+    animation: slide-in 0.3s ease-out;
+  }
+  
+  .toaster {
+    margin: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .toaster-success {
+    background-color: #ECFDF3;
+    border-left: 4px solid #027A48;
+    color: #027A48;
+  }
+  
+  .toaster-error {
+    background-color: #FEF3F2;
+    border-left: 4px solid #DA1034;
+    color: #DA1034;
+  }
+  
+  
+  .toaster-info {
+    background-color: #F0F9FF;
+    border-left: 4px solid #0086E6;
+    color: #0086E6;
+  }
+  
+  .toaster-admin {
+    background-color: #EEF4FF;
+    border-left: 4px solid #388DDB;
+    color: #388DDB;
+  }
+  
+  .closs-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+  .toaster-message {
+    margin-top: 4px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .toaster-close {
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+  @keyframes slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  .hidden {
+    animation: fade-out 0.3s ease-in forwards;
+  }
+  
+  @keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }

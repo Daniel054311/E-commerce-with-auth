@@ -1,0 +1,97 @@
+@import '../../../../variables';
+@import '../../../../mixins';
+
+nav{
+  box-shadow:  $box-shadow;
+  ul:not(.dropdown-list){
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding:3.4vh 100px ;
+    .actionsForAuthenticationContainer{
+      display: flex;
+      gap: 29px;
+      .active{
+        @include buttonStyle($white-color,$voilet-color)
+
+      }
+      a{
+        font-size: 1.125rem;
+        font-weight: 500;
+        padding: 1.2vh 2rem;
+        border-radius: 8px;
+        outline: 1px solid $secondary-black-color;
+        color: $voilet-color;
+        text-decoration: none;
+      }
+
+    }
+    .isAuthenticatedContainer {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .dropdown-menu-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        position: relative;
+        .dropdown-menu {
+         position: absolute;
+         opacity: 0;
+         visibility: hidden;
+         transition: opacity 0.3s ease, visibility 0.3s ease;
+         top: 100%;
+         right: 0;
+         background-color: #f9f9f9;
+         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+         z-index: 1;
+         color: $secondary-black-color;
+         border-radius: 8px;
+         padding: 10px;
+
+          .dropdown-list{
+          margin-bottom: 10px;
+          list-style: none;
+          text-decoration: none;
+         
+          &:hover{
+          cursor: pointer;
+          color: $voilet-color;
+          }
+         }
+
+         &:hover{
+          opacity: 1;
+          visibility: visible;
+         }
+        }
+      }
+      .user-icon:hover + .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .list-item , .user-icon{
+        padding: 10px;
+        cursor: pointer;
+        background-color: $light-gray-color;
+        transition: background-color 0.3s ease;
+        border-radius: 8px;
+        &:hover {
+          background-color: $voilet-color;
+          path{
+            stroke: $white-color;
+           }
+        }
+
+      }
+
+    }
+  }
+}
+
+
+

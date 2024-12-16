@@ -1,0 +1,23 @@
+@mixin buttonStyle($color,$background-color) {  
+    font-size: 1.125rem;
+        padding: 1.2vh 2rem;
+        border-radius: 8px;
+        margin-bottom: 0.5rem;
+        border: none;
+        outline:none;
+        cursor: pointer;
+        background-color: $background-color;
+        color: $color;
+        transform: opacity 0.3s ease-in-out;
+        &:hover {
+            opacity: 0.7;
+        }  
+        &:disabled{
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+  } 
+
+  @mixin  inputCaretColor($border-color){
+    caret-color: $border-color;
+  }

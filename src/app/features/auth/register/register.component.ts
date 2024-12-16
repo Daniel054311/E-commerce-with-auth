@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthErrorMessagePipe } from '../../../shared/utils/pipes/auth-error-message.pipe';
@@ -8,6 +8,7 @@ import { AuthService } from '../../../core/service/auth.service';
 import { getErrorMessage } from '../../../shared/utils/error.util';
 import { Role } from '../../models/user.roles';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +17,12 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
   @ViewChild(ToasterComponent) toaster!: ToasterComponent;
   registerForm!: FormGroup;
   isLoading = false;
   userRoles = Object.values(Role);
+  private readonly destroy$ = new Subject<void>();
 
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -37,7 +39,7 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required],
-      userRole: ['', Validators.required]
+      role: ['', Validators.required]
     }, {
       validators: this.passwordMatchValidator
     });
@@ -64,7 +66,7 @@ export class RegisterComponent implements OnInit {
       this.isLoading = true;
       const { confirmPassword, ...registrationData } = this.registerForm.value;
 
-      this.authService.register(registrationData).subscribe({
+      this.authService.register(registrationData).pipe(takeUntil(this.destroy$)).subscribe({
         next: (response) => {
           this.toaster.showToast({
             message: 'Registration successful!',
@@ -89,7 +91,10 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 
 
 }

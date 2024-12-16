@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthErrorMessagePipe } from '../../../shared/utils/pipes/auth-error-message.pipe';
@@ -7,6 +7,7 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
 import { AuthService } from '../../../core/service/auth.service';
 import { ToasterComponent } from '../../../shared/components/toaster/toaster.component';
 import { getErrorMessage } from '../../../shared/utils/error.util';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,14 @@ import { getErrorMessage } from '../../../shared/utils/error.util';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit ,OnDestroy{
   @ViewChild(ToasterComponent) toaster!: ToasterComponent;
 
   loginForm!: FormGroup;
-  isLoading = false;
+  private readonly destroy$ = new Subject<void>();
 
 
-  constructor(private fb: FormBuilder,private readonly authService:AuthService,private readonly router:Router) {}
+  constructor(private readonly fb: FormBuilder,private readonly authService:AuthService,private readonly router:Router) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -32,15 +33,14 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-    
+
     })
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.isLoading = true;
       const loginFormData = this.loginForm.value;
-      this.authService.login(loginFormData).subscribe({
+      this.authService.login(loginFormData).pipe(takeUntil(this.destroy$)).subscribe({
         next: (response) => {
           this.toaster.showToast({
             message: 'Login successful!',
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
           });
           this.loginForm.reset();
           setTimeout(() => {
-            this.router.navigate(['/home']);
+            this.router.navigate(['/dashboard']);
           }, 3000);
         },
         error: (error) => {
@@ -59,10 +59,16 @@ export class LoginComponent implements OnInit {
             type: 'error',
             duration: 5000
           });
-          this.isLoading = false;
+
         },
       });
     }
+  }
+
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
 }

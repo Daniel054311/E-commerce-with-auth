@@ -52,14 +52,14 @@
           </div>
 
           <div class="formGroup">
-            <label for="userRole">User Role</label>
-            <select  id="userRole" formControlName="userRole" class="formControl">
+            <label for="role">User Role</label>
+            <select  id="role" formControlName="role" class="formControl">
                 <option value="" disabled selected>Select your role</option>
                  <option *ngFor="let role of userRoles" [value]="role">{{ role }}</option>
             </select>
             <small class="errorText"
-              *ngIf="registerForm.get('userRole')?.touched && registerForm.get('userRole')?.invalid">
-              {{ registerForm.get('userRole')?.errors || {} | authErrorMessage }}
+              *ngIf="registerForm.get('role')?.touched && registerForm.get('role')?.invalid">
+              {{ registerForm.get('role')?.errors || {} | authErrorMessage }}
             </small>
         </div>
 

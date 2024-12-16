@@ -4,6 +4,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { SellersDashboardComponent } from './features/products/dashboard/sellers-dashboard/sellers-dashboard.component';
 import { authGuard } from './core/guards/auth.guard';
+import { checkUserRolesGuard } from './core/guards/check-user-roles.guard';
 
 export const routes: Routes = [
   {
@@ -19,14 +20,15 @@ export const routes: Routes = [
     component:RegisterComponent,
   },
   {
-    path: 'dashboard/sellers',
-    component:SellersDashboardComponent
+    path: 'dashboard',
+    component:SellersDashboardComponent,
+    canActivate:[authGuard,checkUserRolesGuard]
 
   },
   {
-    path: '',
+    path: '**',
     redirectTo: 'home',
     pathMatch: 'full'
-  }
+  },
 
 ];

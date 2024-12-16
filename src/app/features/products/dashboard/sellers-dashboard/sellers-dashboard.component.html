@@ -1,10 +1,12 @@
 
 <app-navbar></app-navbar>
    <div class="dashboard">
+    <app-toaster></app-toaster>
     <header class="dashboard__header">
         <h1>Seller Dashboard</h1>
     </header>
     <main class="dashboard__main">
+       
         <section class=" product-form">
             <h2>{{ editMode ? 'Update Product' : 'Post Your Product' }}</h2>
             <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
@@ -51,14 +53,14 @@
         <section class=" product-list">
             <h2>Your Products</h2>
             <div class="product-grid">
-                <div *ngFor="let item of products; let i = index" class="product-card">
-                    <h3>{{ item.name }}</h3>
-                    <p>{{ item.description }}</p>
-                    <p><strong>Price:</strong> ${{ item.price }}</p>
-                    <img [src]="item.image" alt="{{ item.name }}" />
+                <div *ngFor="let product of products; let i = index" class="product-card">
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p><strong>Price:</strong> ${{ product.price }}</p>
+                    <img [src]="product.imageUrl" alt="{{ product.name }}" />
                     <div class="actions">
-                        <button class="btn edit" (click)="editProduct(i)">Edit</button>
-                        <button class="btn delete" (click)="deleteProduct(i)">Delete</button>
+                        <button class="btn edit" (click)="editProduct(product)">Edit</button>
+                        <button class="btn delete" (click)="deleteProduct(product.id)">Delete</button>
                     </div>
                 </div>
             </div>

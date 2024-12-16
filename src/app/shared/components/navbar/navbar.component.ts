@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../../core/service/auth.service';
+import { Role } from '../../../features/models/user.roles';
 
 @Component({
   selector: 'app-navbar',
@@ -13,13 +14,21 @@ import { AuthService } from '../../../core/service/auth.service';
 export class NavbarComponent  {
 
   protected isAuthenticated:string | null = this.authService.getToken()
+
+  public currentUser = this.authService.currentUser();
+  public currentRole = Role;
  
-  constructor(private readonly authService:AuthService){}
+  constructor(private readonly authService:AuthService,private readonly router:Router){}
+
 
  
 
  
 
+  onLogout(): void {
+    this.authService.logout(); 
+    this.router.navigate(['/auth/login']);
+  }
 
 
 
